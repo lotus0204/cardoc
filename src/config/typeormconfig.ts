@@ -10,3 +10,4 @@ export const typeOrmConfig: SqliteConnectionOptions = {
   synchronize: false,
   logging: true,
 };
+// synchronize가 초기화하는 그런것처럼 보인다.
