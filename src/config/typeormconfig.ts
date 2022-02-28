@@ -7,7 +7,7 @@ export const typeOrmConfig: SqliteConnectionOptions = {
   type: 'sqlite',
   database: process.env.DATABASE,
   entities: [__dirname + '/../**/*.entity.{js, ts}'],
-  synchronize: false,
+  synchronize: true,
   logging: true,
 };
 // synchronize가 초기화하는 그런것처럼 보인다.
