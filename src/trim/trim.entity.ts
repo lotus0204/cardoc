@@ -1,5 +1,6 @@
+import { Tire } from 'src/tire/tire.entity';
 import { User } from 'src/user/user.entity';
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity()
 export class Trim extends BaseEntity{
@@ -11,5 +12,8 @@ export class Trim extends BaseEntity{
 
   @ManyToMany(() => User)
     @JoinTable()
-    users: User[];
+  users: User[];
+  
+  @OneToMany((type) => Tire, (tire) => tire.trim, { eager: true })
+  tires: Tire[];
 }
