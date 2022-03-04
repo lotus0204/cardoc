@@ -7,12 +7,14 @@ import { UserModule } from './user/user.module';
 import { TrimModule } from './trim/trim.module';
 import { TireController } from './tire/tire.controller';
 import { TireModule } from './tire/tire.module';
+import { UserTrimModule } from './user-trim/user-trim.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
     TrimModule,
-    TireModule],
+    TireModule,
+    UserTrimModule],
   controllers: [],
   providers: [],
 })

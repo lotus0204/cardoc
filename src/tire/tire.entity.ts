@@ -1,5 +1,5 @@
 import { Trim } from 'src/trim/trim.entity';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn, } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 
 @Entity()
 export class Tire extends BaseEntity{
@@ -18,7 +18,7 @@ export class Tire extends BaseEntity{
   @Column({ unique: true })
   type: tireType;
   
-  @ManyToMany((type) => Trim, (trim) => trim.tires)
+  @ManyToOne((type) => Trim, (trim) => trim.tires)
   @JoinColumn({ name: 'trim_id' })
   trim: Trim;
 }
