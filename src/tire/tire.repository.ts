@@ -28,6 +28,14 @@ export class TireRepository extends Repository<Tire>{
       type: tireType.FRONT
     })
     await this.save(frontTireInfo)
+
+    const rearTireInfo = await this.create({
+      width: Number(rearTire[0]),
+      ratio: Number(rearTire[1]),
+      wheelSize: Number(rearTire[2]),
+      type: tireType.REAR
+    })
+    await this.save(rearTireInfo);
     // console.log(frontTireInfo)
     // { width: 225, ratio: 60, wheelSize: 16 }
   }
