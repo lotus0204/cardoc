@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { SaveTireDto } from './dto/saveTire.dto';
 import { TireDto } from './dto/tire.dto';
@@ -10,7 +10,9 @@ export class TireController {
   // 타이어 조회
   @Get()
   @UseGuards(AuthGuard())
-  async getTire() {
+  async getTire(@Req() req) {
+    // console.log(req.user);
+    return this.tireService.getTire(req.user);
     
   }
 

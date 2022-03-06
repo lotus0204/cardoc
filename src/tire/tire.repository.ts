@@ -11,6 +11,7 @@ export class TireRepository extends Repository<Tire>{
     //   width, ratio, wheelSize, type
     // });
     // await this.save(tire);
+    // console.log(trim.trimId)
     const { frontTire, rearTire } = entiretireInfo;
     // console.log('1111',frontTire);
     // console.log('22222', rearTire)
@@ -25,7 +26,8 @@ export class TireRepository extends Repository<Tire>{
       width: Number(frontTire[0]),
       ratio: Number(frontTire[1]),
       wheelSize: Number(frontTire[2]),
-      type: tireType.FRONT
+      type: tireType.FRONT,
+      trim:trim
     })
     await this.save(frontTireInfo)
 
@@ -33,7 +35,8 @@ export class TireRepository extends Repository<Tire>{
       width: Number(rearTire[0]),
       ratio: Number(rearTire[1]),
       wheelSize: Number(rearTire[2]),
-      type: tireType.REAR
+      type: tireType.REAR,
+      trim:trim
     })
     await this.save(rearTireInfo);
     // console.log(frontTireInfo)

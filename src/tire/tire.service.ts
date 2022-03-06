@@ -1,9 +1,10 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { throws } from 'assert/strict';
 import { TrimRepository } from 'src/trim/trim.repository';
 import { UserTrimRepository } from 'src/user-trim/user-trim.repository';
+import { User } from 'src/user/user.entity';
 import { UserRepository } from 'src/user/user.repository';
 import { SaveTireDto } from './dto/saveTire.dto';
 import { TireDto } from './dto/tire.dto';
@@ -68,4 +69,36 @@ export class TireService {
       rearTire: rearTireInfo
     }
   }
+  // 타이어 조회하기
+  async getTire(user: User) {
+    // console.log(user.userTrims);
+    const data = [];
+    for (let userTrim of user.userTrims) {
+      const a = await this.userTrimRepository.find({ relations: ['trim'], where: { id:userTrim.id } });
+      const { trimId, tires } = a[0].trim;
+      data.push({
+        trimId,
+        frontTire: {
+          width: tires[0].width,
+          ratio: tires[0].ratio,
+          wheelSize: tires[0].wheelSize
+        },
+        rearTire: {
+          width: tires[1].width,
+          ratio: tires[1].ratio,
+          wheelSize: tires[1].wheelSize
+        }
+      })
+      // console.log(a[0].trim);
+      // console.log(a[0].trim.tires[1]);
+
+    }
+    return data;
+  }
 }
+// 같은 것이 있으면 안넣어줘야하나, 아니면 구분을 해서 넣어줘야 하는 것인가.
+// try catch
+// 예외처리
+// 리턴데이터 형식
+// 전체 흐름 속에서 제대로된 처리 생각하기
+// 

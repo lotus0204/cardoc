@@ -6,16 +6,16 @@ export class Tire extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   width: number;
 
-  @Column({ unique: true })
+  @Column()
   ratio: number;
 
-  @Column({ unique: true })
+  @Column()
   wheelSize: number;
 
-  @Column({ unique: true })
+  @Column()
   type: tireType;
   
   @ManyToOne((type) => Trim, (trim) => trim.tires)
