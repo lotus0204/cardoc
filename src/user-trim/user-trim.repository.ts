@@ -5,9 +5,8 @@ import { UserTrim } from "./user-trim.entity";
 
 @EntityRepository(UserTrim)
 export class UserTrimRepository extends Repository<UserTrim>{
-  async saveUserTrim(user: User, trim: Trim) {
-    
+  async saveUserTrim(user: User, trim: Trim):Promise<void> {
     const userTrim = await this.create({ user, trim });
-    return await this.save(userTrim);
+    await this.save(userTrim);
   }
 }

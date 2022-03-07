@@ -6,7 +6,7 @@ import { UserDto } from "./dto/user.dto";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User>{
-  // ## 유저생성 ## //
+  // 유저생성
   async createUser(userDto: UserDto): Promise<void>{
     const { username, password } = userDto;
     const salt = await bcrypt.genSalt();
@@ -23,5 +23,4 @@ export class UserRepository extends Repository<User>{
       else throw new InternalServerErrorException();
     }
   }
-
 }

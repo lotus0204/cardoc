@@ -1,24 +1,21 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { SaveTireDto } from './dto/saveTire.dto';
-import { TireDto } from './dto/tire.dto';
 import { TireService } from './tire.service';
 
 @Controller('tire')
+@UseGuards(AuthGuard())
 export class TireController {
   constructor(private tireService: TireService){}
   // 타이어 조회
   @Get()
-  @UseGuards(AuthGuard())
-  async getTire(@Req() req) {
-    // console.log(req.user);
-    return this.tireService.getTire(req.user);
-    
+  async getTire(@Req() req): Promise<any[]> {
+    return await this.tireService.getTire(req.user);
   }
 
+  // 타이어 저장
   @Post()
-  createTire(@Body() saveTireDto: SaveTireDto[]): Promise<string> {
+  async createTire(@Body() saveTireDto: SaveTireDto[]): Promise<string> {
     return this.tireService.createTire(saveTireDto);
   }
-
 }

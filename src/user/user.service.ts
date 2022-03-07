@@ -12,13 +12,13 @@ export class UserService {
     private userRepository: UserRepository,
     private jwtService: JwtService
   ) { }
-  // == 회원가입 == //
+  // 회원가입
   async signup(userDto: UserDto): Promise<string>{
     await this.userRepository.createUser(userDto);
     return '회원 가입이 완료 되었습니다.';
   }
 
-  // == 로그인 == //
+  // 로그인
   async signin(userDto: UserDto): Promise<{accessToken:string}>{
     const { username, password } = userDto;
     const user = await this.userRepository.findOne({ username });

@@ -1,7 +1,6 @@
 import { Tire } from 'src/tire/tire.entity';
 import { UserTrim } from 'src/user-trim/user-trim.entity';
-import { User } from 'src/user/user.entity';
-import { BaseEntity, Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Trim extends BaseEntity{
