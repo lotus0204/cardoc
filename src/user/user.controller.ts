@@ -1,8 +1,9 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
+@UsePipes(ValidationPipe)
 export class UserController {
   constructor(private userService: UserService) { }
   // 회원가입

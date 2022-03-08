@@ -24,13 +24,13 @@ export class TireService {
   ) { }
     // 타이어 조회
     async getTire(user: User): Promise<any[]> {
-      const data = [];
+      const result = [];
       for (let userTrim of user.userTrims) {
         const userTrimInfo = await this.userTrimRepository.find({
           relations: ['trim'], where: { id: userTrim.id }
         });
         const { trimId, tires } = userTrimInfo[0].trim;
-        data.push({
+        result.push({
           trimId,
           frontTire: {
             width: tires[0].width,
@@ -44,26 +44,41 @@ export class TireService {
           }
         });
       }
-      return data;
+      return result;
     }
   
   // 타이어 저장
-  async createTire(saveTireDtos: SaveTireDto[]): Promise<string>{
+  async createTire(saveTireDtos: SaveTireDto[]){
+    const request = [];
+    const success = [];
+    const fail = [];
     try {
       // 요청이 5개보다 많을 경우
-      if (saveTireDtos.length > 5) return '요청의 개수가 과도합니다.';
+      if (saveTireDtos.length > 5) return '요청의 개수를 초과하였습니다.';
       
       for (const saveTireDto of saveTireDtos) {
         const { id, trimId } = saveTireDto;
-    
+        request.push({
+          id: id,
+          trimId: trimId
+        });
+
         const user = await this.userRepository.findOne({ username: id });
         let trim = await this.trimRepository.findOne({ trimId });
 
         // 유저가 없는 경우, 없는 유저를 표시해주고 반복문의 다음으로 넘어간다.
         if (!user) {
-          this.logger.log(`${id}는 없는 유저입니다.`)
+          this.logger.log(`${id}는 없는 유저입니다.`);
+          fail.push({
+            id: id,
+            trimId: trimId
+          });
           continue;
         }
+        success.push({
+          id: id,
+          trimId: trimId
+        });
         // trim이 없는 경우, 새로운 trim을 생성하고 진행한다.
         if (!trim) {
           trim = await this.trimRepository.createTrim(trimId);
@@ -76,6 +91,12 @@ export class TireService {
     } catch (err) {
       console.log(err);
     }
+    const result = {
+      "전체요청": request,
+      "성공요청": success,
+      "실패요청": fail
+    }
+    return result;
   }
   
   // 타이어 정보 받아와서 가공하기

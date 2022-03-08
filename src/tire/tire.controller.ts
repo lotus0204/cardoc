@@ -15,7 +15,7 @@ export class TireController {
 
   // 타이어 저장
   @Post()
-  async createTire(@Body() saveTireDto: SaveTireDto[]): Promise<string> {
-    return this.tireService.createTire(saveTireDto);
+  async createTire(@Body() saveTireDto: SaveTireDto[]) {
+    return await this.tireService.createTire(saveTireDto);
   }
 }
